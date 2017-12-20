@@ -3,14 +3,17 @@ import config from '../config'
 const selectElm = document.querySelector('#projectSelect')
 const imageListDiv = document.querySelector('#imageList')
 
+const zpad = n => n.toString().length === 1 ? `0${n}` : n.toString()
+
 document.querySelector('#createButton').addEventListener('click', (e) => {
   e.preventDefault()
+  const now = new Date()
   chrome.runtime.sendMessage(chrome.runtime.id, {
     target: 'main',
     action: 'createScrapboxPage',
     projectName: selectElm.value,
     imageUrl: !document.querySelector('#dontUseImageCheckBox').checked && document.querySelector('.selected').src,
-    text: document.querySelector('#scrapboxText').value,
+    text: `${document.querySelector('#scrapboxText').value}\n\n\n#${now.getFullYear()}${zpad(now.getMonth() + 1)}${zpad(now.getDate())}\n`,
     title: document.querySelector('#pageTitle').value
   })
   window.close()
