@@ -13,7 +13,7 @@ document.querySelector('#createButton').addEventListener('click', (e) => {
     action: 'createScrapboxPage',
     projectName: selectElm.value,
     imageUrl: !document.querySelector('#dontUseImageCheckBox').checked && document.querySelector('.selected').src,
-    text: `${document.querySelector('#scrapboxText').value}\n\n\n#${now.getFullYear()}${zpad(now.getMonth() + 1)}${zpad(now.getDate())}\n`,
+    text: `${document.querySelector('#scrapboxText').value}\n\n\n#${now.getFullYear()}${zpad(now.getMonth() + 1)}${zpad(now.getDate())} #${zpad(now.getMonth() + 1)}${zpad(now.getDate())}\n`,
     title: document.querySelector('#pageTitle').value
   })
   window.close()
