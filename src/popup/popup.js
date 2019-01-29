@@ -66,11 +66,17 @@ chrome.runtime.sendMessage(chrome.runtime.id, {
   apiType: 'getProjects'
 }, async (res) => {
   const {projects} = res
-  projects.forEach((project) => {
-    const optionElm = document.createElement('option')
-    optionElm.value = project.name
-    optionElm.textContent = project.displayName
-    selectElm.appendChild(optionElm)
-  })
+  const mine = ['583256a009a8060011429d66', '5c29451d434bf90017d3b218']
+  projects
+    .filter(project => mine.some(id => id === project.id))
+    .concat(
+      projects
+        .filter(project => !mine.some(id => id === project.id))
+    ).forEach((project) => {
+      const optionElm = document.createElement('option')
+      optionElm.value = project.name
+      optionElm.textContent = `${project.name} - ${project.displayName}`
+      selectElm.appendChild(optionElm)
+    })
   selectElm.value = (await config.projectName()) || projects[0].name
 })
